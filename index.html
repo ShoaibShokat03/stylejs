@@ -7,7 +7,7 @@
     <script src="./stylejs/style.js"></script>
   </head>
   <body
-    stylejs="width:100% height:auto font-family:calibri bg:#fefefe color:blue ww-max-400px:bg:blue"
+    stylejs="m:0px p:0px width:100% height:auto font-family:calibri bg:#fefefe color:blue ww-max-400px:bg:blue"
   >
     <div class="app">
       <div class="box" stylejs="padding:20px border:1px_solid_#ccc">
@@ -24,7 +24,7 @@
           </p>
           <button
             type="button"
-            stylejs="bg:red hover:bg:blue color:white padding:10px border:none cursor:pointer"
+            stylejs="bg:red hover:bg:blue hover:[{border-radius:5px}~{transform:rotate(60deg)}~{transform:translate(45px,0px),rotate(5deg)}~{box-shadow:0_4px_8px_rgba(0,0,0,0.2)}] transition:all~0.4s~linear color:white padding:10px border:none cursor:pointer"
           >
             Hover to change color
           </button>
@@ -43,6 +43,38 @@
           </ul>
         </div>
       </div>
+    </div>
+    <!-- Documentation of use case -->
+    <div
+      class="documentation"
+      stylejs="margin-top:40px padding:20px border:1px_solid_#ddd"
+    >
+      <h2 stylejs="font-size:1.5rem color:#333">Documentation</h2>
+      <p stylejs="font-size:1rem margin-bottom:10px">
+        This example demonstrates how to use the <code>stylejs</code> attribute
+        to apply inline styles with hover effects and responsive design.
+      </p>
+      <pre stylejs="bg:#f4f4f4 padding:10px border-radius:5px overflow:scroll">
+        <code>
+          &lt;button
+            type="button"
+            stylejs="bg:red hover:bg:blue hover:[{border-radius:5px}~{transform:rotate(60deg)}~{transform:translate(45px,0px),rotate(5deg)}~{box-shadow:0_4px_8px_rgba(0,0,0,0.2)}] transition:all~0.4s~linear color:white padding:10px border:none cursor:pointer"
+          &gt;
+            Hover to change color
+          &lt;/button&gt;
+        </code>
+      </pre>
+      <p stylejs="font-size:1rem margin-bottom:10px">
+        To use spaces in style values, replace spaces with <code>_</code> and
+        separate multiple styles with <code>~</code>.
+      </p>
+      <pre stylejs="bg:#f4f4f4 padding:10px border-radius:5px overflow:scroll">
+        <code>
+          &lt;div stylejs="padding:20px border:1px_solid_#ccc"&gt;
+            &lt;!-- ... --&gt;
+          &lt;/div&gt;
+        </code>
+      </pre>
     </div>
   </body>
 </html>

@@ -1,6 +1,12 @@
+let timeBeforLoad = new Date();
+console.log(timeBeforLoad);
 window.addEventListener("load", () => {
+  let timeAfterLoaded = new Date();
+  let loadingTime = timeAfterLoaded - timeBeforLoad;
+  let timeInSeconds = loadingTime / 1000;
+
   const st = document.querySelector(".status");
-  st.textContent = "Loaded";
+  st.textContent = "Loaded in " + timeInSeconds + " seconds";
 
   var classId = 0;
   function genUniqueClass() {
@@ -67,6 +73,7 @@ window.addEventListener("load", () => {
             if (isNormalStyle) {
               let eStyle = eClassArray[0];
               let eStyleValue = eClassArray[1];
+              eStyleValue = eStyleValue.replaceAll("_", " ");
               const isShortStyle = getLongStyle(eStyle);
               const isShortStyleValue = getLongStyle(eStyleValue);
               if (isShortStyle) {
@@ -83,20 +90,55 @@ window.addEventListener("load", () => {
 
             const isHover = eClass.startsWith("hover:");
             if (isHover) {
-              let eStyle = eClassArray[1];
-              let eStyleValue = eClassArray[2];
-              const isShortStyle = getLongStyle(eStyle);
-              const isShortStyleValue = getLongStyle(eStyleValue);
-              if (isShortStyle) {
-                eStyle = isShortStyle;
+              const isHoverArrayObject = eClass.startsWith("hover:[");
+              if (isHoverArrayObject) {
+                console.log("===", eClassArray);
+                let hoverString = ``;
+                for (let i = 0; i < eClassArray.length; i++) {
+                  if (i != 0) {
+                    const element = eClassArray[i];
+                    hoverString += element + ":";
+                  }
+                }
+                hoverString = hoverString.replace("[", "").replace("]:", "");
+                console.log(hoverString);
+                const hoverArray = hoverString.split("~");
+                console.log(hoverArray);
+                if (hoverArray.length > 0) {
+                  hoverArray.forEach((ob) => {
+                    ob = ob.replace("{", "").replace("}", "");
+                    const obArray = ob.split(":");
+                    let eStyle = obArray[0];
+                    let eStyleValue = obArray[1];
+                    eStyleValue = eStyleValue.replaceAll("_", " ");
+                    const isShortStyle = getLongStyle(eStyle);
+                    const isShortStyleValue = getLongStyle(eStyleValue);
+                    if (isShortStyle) {
+                      eStyle = isShortStyle;
+                    }
+                    if (isShortStyleValue) {
+                      eStyle = isShortStyleValue;
+                    }
+                    hoverEffects += `\t${eStyle}:${eStyleValue};\n`;
+                  });
+                }
+              } else {
+                let eStyle = eClassArray[1];
+                let eStyleValue = eClassArray[2];
+                eStyleValue = eStyleValue.replaceAll("_", " ");
+                const isShortStyle = getLongStyle(eStyle);
+                const isShortStyleValue = getLongStyle(eStyleValue);
+                if (isShortStyle) {
+                  eStyle = isShortStyle;
+                }
+                if (isShortStyleValue) {
+                  eStyle = isShortStyleValue;
+                }
+                //   console.log("Short", isShortStyle);
+                // console.log(eClassArray);
+                // console.log(eClass, eStyle, eStyleValue);
+                hoverEffects += `\t${eStyle}:${eStyleValue};\n`;
               }
-              if (isShortStyleValue) {
-                eStyle = isShortStyleValue;
-              }
-              //   console.log("Short", isShortStyle);
-              // console.log(eClassArray);
-              // console.log(eClass, eStyle, eStyleValue);
-              hoverEffects += `\t${eStyle}:${eStyleValue};\n`;
             }
 
             //   If is there any media query
@@ -120,6 +162,7 @@ window.addEventListener("load", () => {
               //   console.log(mediaQueryActual);
               let eStyle = eClassArray[1];
               let eStyleValue = eClassArray[2];
+              eStyleValue = eStyleValue.replaceAll("_", " ");
               const isShortStyle = getLongStyle(eStyle);
               const isShortStyleValue = getLongStyle(eStyleValue);
               if (isShortStyle) {

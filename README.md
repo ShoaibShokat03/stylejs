@@ -74,6 +74,29 @@ Apply styles to HTML elements using the `stylejs` attribute. You can define styl
 </html>
 ```
 
+## Using Hover Effects
+
+To apply multiple hover effects, separate each effect with a `~`. For example:
+
+```html
+<button
+  type="button"
+  stylejs="bg:red hover:bg:blue hover:[{border-radius:5px}~{transform:rotate(60deg)}~{transform:translate(45px,0px),rotate(5deg)}~{box-shadow:0_4px_8px_rgba(0,0,0,0.2)}] transition:all~0.4s~linear color:white padding:10px border:none cursor:pointer"
+>
+  Hover to change color
+</button>
+```
+
+## Using Spaces in Style Values
+
+To use spaces in style values, replace spaces with `_` and separate multiple styles with `~`. For example:
+
+```html
+<div stylejs="padding:20px border:1px_solid_#ccc">
+  <!-- ... -->
+</div>
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
